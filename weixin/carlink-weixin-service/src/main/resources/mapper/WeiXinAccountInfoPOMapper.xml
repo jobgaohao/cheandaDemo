@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cad.carlink.weixin.dao.WeiXinAccountInfoPOMapper">
+    <resultMap id="BaseResultMap" type="com.cad.carlink.weixin.model.po.WeiXinAccountInfoPO">
+        <id column="pkid" property="pkid" jdbcType="INTEGER"/>
+        <result column="userId" property="userid" jdbcType="INTEGER"/>
+        <result column="openId" property="openid" jdbcType="VARCHAR"/>
+        <result column="areaType" property="areatype" jdbcType="INTEGER"/>
+        <result column="cellphone" property="cellphone" jdbcType="VARCHAR"/>
+        <result column="headImgUrl" property="headimgurl" jdbcType="VARCHAR"/>
+        <result column="nickName" property="nickname" jdbcType="VARCHAR"/>
+        <result column="imageTag" property="imagetag" jdbcType="VARCHAR"/>
+        <result column="sex" property="sex" jdbcType="SMALLINT"/>
+        <result column="language" property="language" jdbcType="VARCHAR"/>
+        <result column="city" property="city" jdbcType="VARCHAR"/>
+        <result column="province" property="province" jdbcType="VARCHAR"/>
+        <result column="country" property="country" jdbcType="VARCHAR"/>
+        <result column="createTime" property="createtime" jdbcType="TIMESTAMP"/>
+        <result column="lastModifyTime" property="lastmodifytime" jdbcType="TIMESTAMP"/>
+        <result column="valid" property="valid" jdbcType="BIT"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    pkid, userId, openId, areaType, cellphone, headImgUrl, nickName, imageTag, sex, language, 
+    city, province, country, createTime, lastModifyTime, valid
+  </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from tbweixinaccountinfo
+        where pkid = #{pkid,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from tbweixinaccountinfo
+        where pkid = #{pkid,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.cad.carlink.weixin.model.po.WeiXinAccountInfoPO">
+    insert into tbweixinaccountinfo (pkid, userId, openId, 
+      areaType, cellphone, headImgUrl, 
+      nickName, imageTag, sex, 
+      language, city, province, 
+      country, createTime, lastModifyTime, 
+      valid)
+    values (#{pkid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{openid,jdbcType=VARCHAR}, 
+      #{areatype,jdbcType=INTEGER}, #{cellphone,jdbcType=VARCHAR}, #{headimgurl,jdbcType=VARCHAR}, 
+      #{nickname,jdbcType=VARCHAR}, #{imagetag,jdbcType=VARCHAR}, #{sex,jdbcType=SMALLINT}, 
+      #{language,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, 
+      #{country,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{lastmodifytime,jdbcType=TIMESTAMP}, 
+      #{valid,jdbcType=BIT})
+  </insert>
+    <insert id="insertSelective" parameterType="com.cad.carlink.weixin.model.po.WeiXinAccountInfoPO">
+        insert into tbweixinaccountinfo
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pkid != null">
+                pkid,
+            </if>
+            <if test="userid != null">
+                userId,
+            </if>
+            <if test="openid != null">
+                openId,
+            </if>
+            <if test="areatype != null">
+                areaType,
+            </if>
+            <if test="cellphone != null">
+                cellphone,
+            </if>
+            <if test="headimgurl != null">
+                headImgUrl,
+            </if>
+            <if test="nickname != null">
+                nickName,
+            </if>
+            <if test="imagetag != null">
+                imageTag,
+            </if>
+            <if test="sex != null">
+                sex,
+            </if>
+            <if test="language != null">
+                language,
+            </if>
+            <if test="city != null">
+                city,
+            </if>
+            <if test="province != null">
+                province,
+            </if>
+            <if test="country != null">
+                country,
+            </if>
+            <if test="createtime != null">
+                createTime,
+            </if>
+            <if test="lastmodifytime != null">
+                lastModifyTime,
+            </if>
+            <if test="valid != null">
+                valid,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="pkid != null">
+                #{pkid,jdbcType=INTEGER},
+            </if>
+            <if test="userid != null">
+                #{userid,jdbcType=INTEGER},
+            </if>
+            <if test="openid != null">
+                #{openid,jdbcType=VARCHAR},
+            </if>
+            <if test="areatype != null">
+                #{areatype,jdbcType=INTEGER},
+            </if>
+            <if test="cellphone != null">
+                #{cellphone,jdbcType=VARCHAR},
+            </if>
+            <if test="headimgurl != null">
+                #{headimgurl,jdbcType=VARCHAR},
+            </if>
+            <if test="nickname != null">
+                #{nickname,jdbcType=VARCHAR},
+            </if>
+            <if test="imagetag != null">
+                #{imagetag,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                #{sex,jdbcType=SMALLINT},
+            </if>
+            <if test="language != null">
+                #{language,jdbcType=VARCHAR},
+            </if>
+            <if test="city != null">
+                #{city,jdbcType=VARCHAR},
+            </if>
+            <if test="province != null">
+                #{province,jdbcType=VARCHAR},
+            </if>
+            <if test="country != null">
+                #{country,jdbcType=VARCHAR},
+            </if>
+            <if test="createtime != null">
+                #{createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastmodifytime != null">
+                #{lastmodifytime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="valid != null">
+                #{valid,jdbcType=BIT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.cad.carlink.weixin.model.po.WeiXinAccountInfoPO">
+        update tbweixinaccountinfo
+        <set>
+            <if test="userid != null">
+                userId = #{userid,jdbcType=INTEGER},
+            </if>
+            <if test="openid != null">
+                openId = #{openid,jdbcType=VARCHAR},
+            </if>
+            <if test="areatype != null">
+                areaType = #{areatype,jdbcType=INTEGER},
+            </if>
+            <if test="cellphone != null">
+                cellphone = #{cellphone,jdbcType=VARCHAR},
+            </if>
+            <if test="headimgurl != null">
+                headImgUrl = #{headimgurl,jdbcType=VARCHAR},
+            </if>
+            <if test="nickname != null">
+                nickName = #{nickname,jdbcType=VARCHAR},
+            </if>
+            <if test="imagetag != null">
+                imageTag = #{imagetag,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                sex = #{sex,jdbcType=SMALLINT},
+            </if>
+            <if test="language != null">
+                language = #{language,jdbcType=VARCHAR},
+            </if>
+            <if test="city != null">
+                city = #{city,jdbcType=VARCHAR},
+            </if>
+            <if test="province != null">
+                province = #{province,jdbcType=VARCHAR},
+            </if>
+            <if test="country != null">
+                country = #{country,jdbcType=VARCHAR},
+            </if>
+            <if test="createtime != null">
+                createTime = #{createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastmodifytime != null">
+                lastModifyTime = #{lastmodifytime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="valid != null">
+                valid = #{valid,jdbcType=BIT},
+            </if>
+        </set>
+        where pkid = #{pkid,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.cad.carlink.weixin.model.po.WeiXinAccountInfoPO">
+        update tbweixinaccountinfo
+        set userId = #{userid,jdbcType=INTEGER},
+          openId = #{openid,jdbcType=VARCHAR},
+          areaType = #{areatype,jdbcType=INTEGER},
+          cellphone = #{cellphone,jdbcType=VARCHAR},
+          headImgUrl = #{headimgurl,jdbcType=VARCHAR},
+          nickName = #{nickname,jdbcType=VARCHAR},
+          imageTag = #{imagetag,jdbcType=VARCHAR},
+          sex = #{sex,jdbcType=SMALLINT},
+          language = #{language,jdbcType=VARCHAR},
+          city = #{city,jdbcType=VARCHAR},
+          province = #{province,jdbcType=VARCHAR},
+          country = #{country,jdbcType=VARCHAR},
+          createTime = #{createtime,jdbcType=TIMESTAMP},
+          lastModifyTime = #{lastmodifytime,jdbcType=TIMESTAMP},
+          valid = #{valid,jdbcType=BIT}
+        where pkid = #{pkid,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateByOpenId" parameterType="com.cad.carlink.weixin.model.dto.req.WeiXinAccountInfoReqDto">
+        update tbweixinaccountinfo
+        <set>
+            <if test="userid != null">
+                userId = #{userid,jdbcType=INTEGER},
+            </if>
+            <if test="openid != null">
+                openId = #{openid,jdbcType=VARCHAR},
+            </if>
+            <if test="areatype != null">
+                areaType = #{areatype,jdbcType=INTEGER},
+            </if>
+            <if test="cellphone != null">
+                cellphone = #{cellphone,jdbcType=VARCHAR},
+            </if>
+            <if test="headimgurl != null">
+                headImgUrl = #{headimgurl,jdbcType=VARCHAR},
+            </if>
+            <if test="nickname != null">
+                nickName = #{nickname,jdbcType=VARCHAR},
+            </if>
+            <if test="imagetag != null">
+                imageTag = #{imagetag,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                sex = #{sex,jdbcType=SMALLINT},
+            </if>
+            <if test="language != null">
+                language = #{language,jdbcType=VARCHAR},
+            </if>
+            <if test="city != null">
+                city = #{city,jdbcType=VARCHAR},
+            </if>
+            <if test="province != null">
+                province = #{province,jdbcType=VARCHAR},
+            </if>
+            <if test="country != null">
+                country = #{country,jdbcType=VARCHAR},
+            </if>
+            <if test="createtime != null">
+                createTime = #{createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastmodifytime != null">
+                lastModifyTime = #{lastmodifytime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="valid != null">
+                valid = #{valid,jdbcType=BIT},
+            </if>
+        </set>
+        where openid = #{openid,jdbcType=INTEGER}
+    </update>
+
+    <sql id="queryWhere">
+        <trim prefix="where" prefixOverrides="and|or">
+            <if test="userid != null">
+                AND userId = #{userid,jdbcType=INTEGER}
+            </if>
+            <if test="areatype !=null">
+                AND areatype = #{areatype,jdbcType=INTEGER}
+            </if>
+            <if test="openid != null">
+                AND openId = #{openid,jdbcType=VARCHAR}
+            </if>
+            <if test="cellphone != null">
+                AND cellphone = #{cellphone,jdbcType=VARCHAR}
+            </if>
+            <if test="headimgurl != null">
+                AND headImgUrl = #{headimgurl,jdbcType=VARCHAR}
+            </if>
+            <if test="nickname != null">
+                AND nickName = #{nickname,jdbcType=VARCHAR}
+            </if>
+            <if test="imagetag != null">
+                AND imageTag = #{imagetag,jdbcType=VARCHAR}
+            </if>
+            <if test="sex != null">
+                AND sex = #{sex,jdbcType=SMALLINT}
+            </if>
+            <if test="language != null">
+                AND language = #{language,jdbcType=VARCHAR}
+            </if>
+            <if test="city != null">
+                AND city = #{city,jdbcType=VARCHAR}
+            </if>
+            <if test="province != null">
+                AND province = #{province,jdbcType=VARCHAR}
+            </if>
+            <if test="country != null">
+                AND country = #{country,jdbcType=VARCHAR}
+            </if>
+            <if test="valid != null">
+                AND valid = #{valid,jdbcType=BIT}
+            </if>
+        </trim>
+    </sql>
+
+    <select id="findList" parameterType="com.cad.carlink.weixin.model.dto.req.WeiXinAccountInfoReqDto"
+            resultType="com.cad.carlink.weixin.model.dto.resp.WeiXinAccountInfoRespDto">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM tbweixinaccountinfo
+        <include refid="queryWhere"/>
+    </select>
+
+</mapper>

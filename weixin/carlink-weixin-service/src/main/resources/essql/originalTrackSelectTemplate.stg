@@ -1,0 +1,137 @@
+selectPhotoCount(_indexName,_plateNum,_minSpeed,_companyId,_lensOrientation,_startTime,_endTime,_vehicleOperateTypeCode,_provinceIds,_cityIds,_districtIds,_companyIds) ::= <<
+SELECT count(*) as total
+from <_indexName>
+where hasPic='true' and authorized='true'
+<if(_plateNum)> and plateNum like '<_plateNum>' <endif>
+<if(_minSpeed)> and runningSpeed \>= <_minSpeed> <endif>
+<if(_companyId)> and companyId = '<_companyId>' <endif>
+<if(_startTime)> and gpsTime \>= '<_startTime>' <endif>
+<if(_endTime)> and gpsTime \< '<_endTime>' <endif>
+<if(_lensOrientation)> and lensOrientation = '<_lensOrientation>' <endif>
+<if(_vehicleOperateTypeCode)> and vehicleOperateTypeCode = '<_vehicleOperateTypeCode>' <endif>
+<if(_provinceIds)> AND provinceId in (<_provinceIds:{item|'<item>'};separator=",">)<endif>
+<if(_cityIds)> AND cityId in (<_cityIds:{item|'<item>'};separator=",">)<endif>
+<if(_districtIds)> AND districtId in (<_districtIds:{item|'<item>'};separator=",">)<endif>
+<if(_companyIds)> AND companyId in (<_companyIds:{item|'<item>'};separator=",">)<endif>
+>>
+
+
+
+selectPhotoForPage(_indexName,_plateNum,_minSpeed,_companyId,_lensOrientation,_startTime,_endTime,_vehicleOperateTypeCode,_offset,_limit,_provinceIds,_cityIds,_districtIds,_companyIds) ::= <<
+SELECT *
+from <_indexName>
+where hasPic='true' and authorized='true'
+<if(_plateNum)> and plateNum like '<_plateNum>' <endif>
+<if(_minSpeed)> and runningSpeed \>= <_minSpeed> <endif>
+<if(_companyId)> and companyId = '<_companyId>' <endif>
+<if(_startTime)> and gpsTime \>= '<_startTime>' <endif>
+<if(_endTime)> and gpsTime \< '<_endTime>' <endif>
+<if(_lensOrientation)> and lensOrientation = '<_lensOrientation>' <endif>
+<if(_vehicleOperateTypeCode)> and vehicleOperateTypeCode = '<_vehicleOperateTypeCode>' <endif>
+<if(_provinceIds)> AND provinceId in (<_provinceIds:{item|'<item>'};separator=",">)<endif>
+<if(_cityIds)> AND cityId in (<_cityIds:{item|'<item>'};separator=",">)<endif>
+<if(_districtIds)> AND districtId in (<_districtIds:{item|'<item>'};separator=",">)<endif>
+<if(_companyIds)> AND companyId in (<_companyIds:{item|'<item>'};separator=",">)<endif>
+order by gpsTime desc
+limit <_offset>,<_limit>
+
+>>
+
+areaSearch(_indexName,_plateNum,_startTime,_endTime,_vehicleOperateTypeList,_provinceIds,_cityIds,_districtIds,_companyIds,_startLongitude,_endLongitude,_startLatitude,_endLatitude,_provinceId,_cityId,_districtId,_companyId,_limit) ::= <<
+SELECT vehicleCode,count(*) as total
+from <_indexName>
+<if(_plateNum)> and plateNum like '<_plateNum>' <endif>
+<if(_startTime)> and gpsTime \>= '<_startTime>' <endif>
+<if(_endTime)> and gpsTime \< '<_endTime>' <endif>
+<if(_startLongitude)> and longitude \> '<_startLongitude>' <endif>
+<if(_endLongitude)> and longitude \< '<_endLongitude>' <endif>
+<if(_startLatitude)> and latitude \> '<_startLatitude>' <endif>
+<if(_endLatitude)> and latitude \< '<_endLatitude>' <endif>
+<if(_vehicleOperateTypeList)> and vehicleOperateTypeId in (<_vehicleOperateTypeList:{item|'<item>'};separator=",">) <endif>
+<if(_provinceId)> and provinceId = '<_provinceId>' <endif>
+<if(_cityId)> and cityId = '<_cityId>' <endif>
+<if(_districtId)> and districtId = '<_districtId>' <endif>
+<if(_companyId)> and companyId = '<_companyId>' <endif>
+<if(_provinceIds)> AND provinceId in (<_provinceIds:{item|'<item>'};separator=",">)<endif>
+<if(_cityIds)> AND cityId in (<_cityIds:{item|'<item>'};separator=",">)<endif>
+<if(_districtIds)> AND districtId in (<_districtIds:{item|'<item>'};separator=",">)<endif>
+<if(_companyIds)> AND companyId in (<_companyIds:{item|'<item>'};separator=",">)<endif>
+group by vehicleCode
+limit <_limit>
+>>
+
+
+findTrackForAlarm(_indexName,_plateNum,_startTime,_endTime,_limit) ::= <<
+SELECT *
+from <_indexName>
+where plateNum='<_plateNum>'
+<if(_startTime)> and gpsTime \>= '<_startTime>' <endif>
+<if(_endTime)> and gpsTime \<= '<_endTime>' <endif>
+order by gpsTime desc
+limit 0,<_limit>
+
+>>
+
+
+selectTrackForCompany(indexName,companyId,startTime,endTime) ::=<<
+SELECT vehicleCode,plateNum,count(*) as trackCount
+FROM <indexName>
+WHERE companyId = <companyId>
+<if(startTime)> and gpsTime \>= '<startTime>'<endif>
+<if(endTime)> and gpsTime \<= '<endTime>'<endif>
+group by  vehicleCode,plateNum
+order by trackCount desc
+
+>>
+
+selectPointList(indexName,plateNum,beginTime,endTime) ::=<<
+SELECT latitude,longitude FROM <indexName>
+where plateNum='<plateNum>'
+<if(beginTime)> and gpsTime \>= '<beginTime>'<endif>
+<if(endTime)> and gpsTime \<= '<endTime>'<endif>
+order by gpsTime
+
+>>
+
+
+getTrackList(_indexName,_plateNum,_startTime,_endTime,_limit) ::= <<
+SELECT companyName,plateNum,gpsTime,receiveTime,longitude,latitude,runningSpeed,totalDistance,vehicleStatusCode,alarmStatusCode
+from <_indexName>
+where plateNum='<_plateNum>'
+<if(_startTime)> and gpsTime \>= '<_startTime>' <endif>
+<if(_endTime)> and gpsTime \< '<_endTime>' <endif>
+order by gpsTime desc
+limit <_limit>
+
+>>
+
+selectTrackListByVehicleCode(indexName,vehicleCode,startTime,endTime,limit) ::= <<
+SELECT gpsTime,runningSpeed,plateNum
+FROM <indexName>
+WHERE
+runningSpeed > 0
+<if(vehicleCode)> and vehicleCode='<vehicleCode>' <endif>
+<if(startTime)> and gpsTime \>= '<startTime>' <endif>
+<if(endTime)> and gpsTime \<= '<endTime>' <endif>
+order by gpsTime asc
+<if(limit)> limit <limit><endif>
+
+>>
+
+
+getTrackListByVehicleCodeAndLensIds(indexName,vehicleCode,startTime,endTime,lensIds) ::= <<
+SELECT *
+FROM <indexName>
+WHERE
+ hasPic='true'
+<if(vehicleCode)> and vehicleCode='<vehicleCode>' <endif>
+<if(startTime)> and gpsTime \>= '<startTime>' <endif>
+<if(endTime)> and gpsTime \<= '<endTime>' <endif>
+<if(lensIds)> AND lensId in (<lensIds:{item|'<item>'};separator=",">)<endif>
+>>
+
+
+calc(num1,num2)::=<<
+  <if(num1)> num1='<num1>' <endif>
+  <if(num2)> num2='<num2>' <endif>
+  >>

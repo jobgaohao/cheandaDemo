@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cad.carlink.weixin.dao.WeiXinMsgTempMapper" >
+
+    <select id="getWeiXinOpenIdByTel"  parameterType="com.cad.carlink.weixin.model.dto.req.WeiXinGetOpenIdByTelReqDto" resultType="com.cad.carlink.weixin.model.po.WeiXinTempMsgPo">
+            select info.openid as openId  from tbWeiXinAccountInfo info  INNER JOIN tbWeiXinAccSet wxset on info.openId=wxset.openid
+            where
+            wxset.valid=1 and
+            info.valid=1 and
+            info.cellphone in (
+                 ${cellphones}
+            )
+            <if test="alarmLevelEnum !=null and  alarmLevelEnum==1">
+                and alarmState=1
+            </if>
+            <if test="alarmLevelEnum !=null and  alarmLevelEnum==2">
+                and warningState=1
+            </if>
+    </select>
+
+</mapper>

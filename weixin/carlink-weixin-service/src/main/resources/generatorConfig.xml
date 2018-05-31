@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+    <context id="mysql2Dto" targetRuntime="MyBatis3">
+        <!--去除注释  -->
+        <commentGenerator type="com.cad.carlink.common.support.mybatis.MybatisCommentGenerator">
+            <property name="suppressAllComments" value="true" />
+        </commentGenerator>
+
+        <!--数据库连接 -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://59.175.148.200:3306/carlink?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;allowMultiQueries=true"
+                        userId="carlinktest"
+                        password="ahMai6EKifohxughaY">
+        </jdbcConnection>
+        <!--默认false
+           Java type resolver will always use java.math.BigDecimal if the database column is of type DECIMAL or NUMERIC.
+         -->
+        <javaTypeResolver >
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+
+        <!--生成实体类-->
+        <javaModelGenerator
+                targetPackage="com.cad.carlink.weixin.model.po"
+                targetProject="F:\CarLink\carlink-weixin\src\main\java">
+            <property name="enableSubPackages" value="false" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+        <!--生成SQLMAPPER文件 -->
+        <!-- D:\Carlink\carlink-core\carlink-core-service\src\main\resources-->
+        <sqlMapGenerator
+                targetPackage="mapper"
+                targetProject="F:\CarLink\carlink-weixin\src\main\resources">
+            <property name="enableSubPackages" value="false" />
+        </sqlMapGenerator>
+
+        <!--生成Dao文件 -->
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="com.cad.carlink.weixin.dao"
+                             targetProject="F:\CarLink\carlink-weixin\src\main\java">
+            <property name="enableSubPackages" value="false" />
+        </javaClientGenerator>
+
+        <!--&lt;!&ndash; 指定生成的表 &ndash;&gt;-->
+        <!--<table tableName="demo_uesr"  domainObjectName="AlarmStatisticsPO" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" ></table>-->
+
+        <table tableName="tbWeiXinAccountInfo"  domainObjectName="WeiXinAccountInfoPO" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" ></table>
+
+        <table tableName="tbWeiXinAccSet"  domainObjectName="WeiXinAccSetPO" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" ></table>
+
+    </context>
+</generatorConfiguration>

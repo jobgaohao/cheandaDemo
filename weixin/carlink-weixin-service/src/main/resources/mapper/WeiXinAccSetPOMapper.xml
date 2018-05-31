@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cad.carlink.weixin.dao.WeiXinAccSetPOMapper" >
+  <resultMap id="BaseResultMap" type="com.cad.carlink.weixin.model.po.WeiXinAccSetPO" >
+    <id column="pkid" property="pkid" jdbcType="INTEGER" />
+    <result column="userId" property="userid" jdbcType="INTEGER" />
+    <result column="openId" property="openid" jdbcType="VARCHAR" />
+    <result column="alarmState" property="alarmstate" jdbcType="BIT" />
+    <result column="warningState" property="warningstate" jdbcType="BIT" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="createUserId" property="createuserid" jdbcType="VARCHAR" />
+    <result column="lastModifyTime" property="lastmodifytime" jdbcType="TIMESTAMP" />
+    <result column="lastModifyUserId" property="lastmodifyuserid" jdbcType="VARCHAR" />
+    <result column="valid" property="valid" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    pkid, userId, openId, alarmState, warningState, remark, createTime, createUserId, 
+    lastModifyTime, lastModifyUserId, valid
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbweixinaccset
+    where pkid = #{pkid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tbweixinaccset
+    where pkid = #{pkid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cad.carlink.weixin.model.po.WeiXinAccSetPO" >
+    insert into tbweixinaccset (pkid, userId, openId, 
+      alarmState, warningState, remark, 
+      createTime, createUserId, lastModifyTime, 
+      lastModifyUserId, valid)
+    values (#{pkid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{openid,jdbcType=VARCHAR}, 
+      #{alarmstate,jdbcType=BIT}, #{warningstate,jdbcType=BIT}, #{remark,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{createuserid,jdbcType=VARCHAR}, #{lastmodifytime,jdbcType=TIMESTAMP}, 
+      #{lastmodifyuserid,jdbcType=VARCHAR}, #{valid,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cad.carlink.weixin.model.po.WeiXinAccSetPO" >
+    insert into tbweixinaccset
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pkid != null" >
+        pkid,
+      </if>
+      <if test="userid != null" >
+        userId,
+      </if>
+      <if test="openid != null" >
+        openId,
+      </if>
+      <if test="alarmstate != null" >
+        alarmState,
+      </if>
+      <if test="warningstate != null" >
+        warningState,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="createtime != null" >
+        createTime,
+      </if>
+      <if test="createuserid != null" >
+        createUserId,
+      </if>
+      <if test="lastmodifytime != null" >
+        lastModifyTime,
+      </if>
+      <if test="lastmodifyuserid != null" >
+        lastModifyUserId,
+      </if>
+      <if test="valid != null" >
+        valid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pkid != null" >
+        #{pkid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="openid != null" >
+        #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmstate != null" >
+        #{alarmstate,jdbcType=BIT},
+      </if>
+      <if test="warningstate != null" >
+        #{warningstate,jdbcType=BIT},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createuserid != null" >
+        #{createuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="lastmodifytime != null" >
+        #{lastmodifytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastmodifyuserid != null" >
+        #{lastmodifyuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="valid != null" >
+        #{valid,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cad.carlink.weixin.model.po.WeiXinAccSetPO" >
+    update tbweixinaccset
+    <set >
+      <if test="userid != null" >
+        userId = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="openid != null" >
+        openId = #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmstate != null" >
+        alarmState = #{alarmstate,jdbcType=BIT},
+      </if>
+      <if test="warningstate != null" >
+        warningState = #{warningstate,jdbcType=BIT},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createuserid != null" >
+        createUserId = #{createuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="lastmodifytime != null" >
+        lastModifyTime = #{lastmodifytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastmodifyuserid != null" >
+        lastModifyUserId = #{lastmodifyuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="valid != null" >
+        valid = #{valid,jdbcType=BIT},
+      </if>
+    </set>
+    where pkid = #{pkid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cad.carlink.weixin.model.po.WeiXinAccSetPO" >
+    update tbweixinaccset
+    set userId = #{userid,jdbcType=INTEGER},
+      openId = #{openid,jdbcType=VARCHAR},
+      alarmState = #{alarmstate,jdbcType=BIT},
+      warningState = #{warningstate,jdbcType=BIT},
+      remark = #{remark,jdbcType=VARCHAR},
+      createTime = #{createtime,jdbcType=TIMESTAMP},
+      createUserId = #{createuserid,jdbcType=VARCHAR},
+      lastModifyTime = #{lastmodifytime,jdbcType=TIMESTAMP},
+      lastModifyUserId = #{lastmodifyuserid,jdbcType=VARCHAR},
+      valid = #{valid,jdbcType=BIT}
+    where pkid = #{pkid,jdbcType=INTEGER}
+  </update>
+
+  <sql id="queryWhere">
+    <trim prefix=" where " prefixOverrides="and|or">
+      <if test="pkid !=null">
+        AND pkid = #{pkid,jdbcType=INTEGER}
+      </if>
+      <if test="userid !=null">
+        AND userid = #{userid,jdbcType=INTEGER}
+      </if>
+      <if test="openid != null and openid !='' ">
+        AND openid= #{openid,jdbcType=VARCHAR}
+      </if>
+      <if test="alarmstate !=null">
+        AND alarmstate = #{alarmstate,jdbcType=BIT}
+      </if>
+      <if test="warningstate !=null">
+        AND warningstate = #{warningstate,jdbcType=BIT}
+      </if>
+    </trim>
+  </sql>
+
+  <update id="updateByOpenId" parameterType="com.cad.carlink.weixin.model.dto.req.WeiXinAccSetReqDto">
+    update tbweixinaccset
+    <set>
+      <if test="userid != null">
+        userId = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="openid != null">
+        openId = #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmstate != null">
+        alarmState = #{alarmstate,jdbcType=BIT},
+      </if>
+      <if test="warningstate != null">
+        warningState = #{warningstate,jdbcType=BIT},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createuserid != null">
+        createUserId = #{createuserid,jdbcType=INTEGER},
+      </if>
+      <if test="lastmodifytime != null">
+        lastModifyTime = #{lastmodifytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastmodifyuserid != null">
+        lastModifyUserId = #{lastmodifyuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="valid != null">
+        valid = #{valid,jdbcType=BIT},
+      </if>
+    </set>
+    where
+    <if test="openid !=null">
+      openId = #{openid,jdbcType=VARCHAR}
+    </if>
+  </update>
+
+  <select id="findList" resultType="com.cad.carlink.weixin.model.dto.resp.WeiXinAccSetRespDto"
+          parameterType="com.cad.carlink.weixin.model.dto.req.WeiXinAccSetReqDto">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM tbweixinaccset
+    <include refid="queryWhere"/>
+  </select>
+
+
+  <!--添加一条是否存在-->
+  <insert id="insertByOpenId" parameterType="com.cad.carlink.weixin.model.dto.req.WeiXinAccSetReqDto">
+    INSERT INTO tbweixinaccset
+    (userId,openId,alarmState,warningState,createTime)
+    SELECT
+    #{userid,jdbcType=INTEGER}, #{openid,jdbcType=VARCHAR},
+    #{alarmstate,jdbcType=BIT}, #{warningstate,jdbcType=BIT},
+    NOW()
+    FROM
+    dual
+    WHERE not exists
+    (
+    select * from tbweixinaccset
+    where openId = #{openid,jdbcType=VARCHAR}
+    )
+  </insert>
+
+
+</mapper>
