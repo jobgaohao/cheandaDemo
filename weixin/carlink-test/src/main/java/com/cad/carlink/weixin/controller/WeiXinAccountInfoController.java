@@ -10,6 +10,7 @@ import com.cad.carlink.weixin.model.dto.req.*;
 import com.cad.carlink.weixin.model.dto.resp.UserLoginRespDto;
 import com.cad.carlink.weixin.model.dto.resp.WeiXinAccountInfoRespDto;
 import com.cad.carlink.weixin.model.dto.resp.WeiXinUserRespDto;
+import com.cad.carlink.weixin.model.po.WeiXinAccountInfoPO;
 import com.cad.carlink.weixin.service.IWeiXinAccSetService;
 import com.cad.carlink.weixin.service.IWeiXinAccountService;
 import com.cad.carlink.weixin.weixin.WechatMsgTempUtil;
@@ -238,4 +239,23 @@ public class WeiXinAccountInfoController {
         return weiXinAccountService.updateByOpenId(dto);
     }
 
+    /**
+     * mybatis 拦截器 分页
+     */
+    @RequestMapping(value = "/getWeiXinAccountList", method = RequestMethod.GET)
+    public void getWeiXinAccountList(){
+        WeiXinAccountInfoPO weiXinAccount=new WeiXinAccountInfoPO();
+        weiXinAccount.setPagebegin(2);
+        weiXinAccount.setPagesize(3);
+        System.out.println("getCount----》"+weiXinAccount.getCount());
+
+        WeiXinAccountInfoReqDto weiXinAccountInfoReqDto=new WeiXinAccountInfoReqDto();
+        BeanUtils.copy(weiXinAccount,weiXinAccountInfoReqDto);
+        ResponsePojo<List<WeiXinAccountInfoRespDto>> listResponsePojo=weiXinAccountService.findList(weiXinAccountInfoReqDto);
+        System.out.println(listResponsePojo.getObject().size());
+        List<WeiXinAccountInfoRespDto> li=listResponsePojo.getObject();
+        for (WeiXinAccountInfoRespDto dto:li ) {
+            System.out.println(dto.getPkid());
+        }
+    }
 }

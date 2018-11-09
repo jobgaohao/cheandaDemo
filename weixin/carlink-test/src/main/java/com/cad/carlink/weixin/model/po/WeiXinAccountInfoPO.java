@@ -1,8 +1,10 @@
 package com.cad.carlink.weixin.model.po;
 
+import com.cad.carlink.weixin.test.mybatisFilter.Common;
+
 import java.util.Date;
 
-public class WeiXinAccountInfoPO {
+public class WeiXinAccountInfoPO extends Common{
     private Integer pkid;
 
     /**

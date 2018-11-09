@@ -1,0 +1,4 @@
+功能说明：mybatisFilter 实现分页功能
+思路：
+截获查询的sql 然后拼成 sqlPage和sqlCount 再进行查找取值 然后赋传入对象
+

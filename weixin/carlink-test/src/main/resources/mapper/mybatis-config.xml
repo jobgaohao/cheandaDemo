@@ -36,5 +36,6 @@
             <!-- 可以配置pageNum,pageSize,count,pageSizeZero,reasonable,不配置映射的用默认值 -->
             <!-- <property name="params" value="pageNum=start;pageSize=limit;pageSizeZero=zero;reasonable=heli;count=contsql"/> -->
         </plugin>
+        <plugin interceptor="com.cad.carlink.weixin.test.mybatisFilter.PageInterceptor"/>
     </plugins>
 </configuration>
