@@ -13,6 +13,7 @@ import com.cad.carlink.weixin.model.dto.resp.WeiXinUserRespDto;
 import com.cad.carlink.weixin.model.po.WeiXinAccountInfoPO;
 import com.cad.carlink.weixin.service.IWeiXinAccSetService;
 import com.cad.carlink.weixin.service.IWeiXinAccountService;
+import com.cad.carlink.weixin.test.annotation.CustomerDate;
 import com.cad.carlink.weixin.weixin.WechatMsgTempUtil;
 import com.cad.carlink.weixin.weixin.WechatUtil;
 import me.chanjar.weixin.mp.bean.result.WxMpUser;
@@ -21,12 +22,17 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @CrossOrigin(origins = "*")
@@ -257,5 +263,18 @@ public class WeiXinAccountInfoController {
         for (WeiXinAccountInfoRespDto dto:li ) {
             System.out.println(dto.getPkid());
         }
+    }
+
+    /**
+     * 参数解析器
+     * @param date
+     * @return
+     */
+    @RequestMapping("/getDate")
+    @ResponseBody
+    public Map <String,Object> userList(@CustomerDate Date date) {
+        Map<String,Object> results=new HashMap<String,Object>();
+        results.put("date",date);
+        return results;
     }
 }

@@ -6,12 +6,12 @@ package com.cad.carlink.weixin.test.annotation;
 public class Test3 {
     public static void main(String[] args) {
         try{
-            //使用类加载器加载类
+            //1.使用类加载器加载类
             Class c=Class.forName("com.cad.carlink.weixin.test.annotation.Test2");
-            //判断类上面是否有注解
+            //2.判断类上面是否有注解
             boolean isExist=c.isAnnotationPresent(MyAnnotation.class);
             if(isExist){
-                //拿到注解
+                //3.拿到注解
                 MyAnnotation myAnnotation=(MyAnnotation)c.getAnnotation(MyAnnotation.class);
                 System.out.println("author:"+myAnnotation.author());
                 System.out.println("age:"+myAnnotation.age());
