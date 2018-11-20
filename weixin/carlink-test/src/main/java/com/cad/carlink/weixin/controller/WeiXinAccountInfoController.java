@@ -2,6 +2,7 @@ package com.cad.carlink.weixin.controller;
 
 
 import com.cad.carlink.common.base.ResponsePojo;
+import com.cad.carlink.common.constant.Constants;
 import com.cad.carlink.common.enums.ResponseCodeTypeEnum;
 import com.cad.carlink.common.support.redis.RedisCacheUtil;
 import com.cad.carlink.common.util.BeanUtils;
@@ -14,6 +15,8 @@ import com.cad.carlink.weixin.model.po.WeiXinAccountInfoPO;
 import com.cad.carlink.weixin.service.IWeiXinAccSetService;
 import com.cad.carlink.weixin.service.IWeiXinAccountService;
 import com.cad.carlink.weixin.test.annotation.CustomerDate;
+import com.cad.carlink.weixin.test.annotation.UserInfo;
+import com.cad.carlink.weixin.test.annotation.UserPo;
 import com.cad.carlink.weixin.weixin.WechatMsgTempUtil;
 import com.cad.carlink.weixin.weixin.WechatUtil;
 import me.chanjar.weixin.mp.bean.result.WxMpUser;
@@ -28,6 +31,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.HashMap;
@@ -253,7 +257,6 @@ public class WeiXinAccountInfoController {
         WeiXinAccountInfoPO weiXinAccount=new WeiXinAccountInfoPO();
         weiXinAccount.setPagebegin(2);
         weiXinAccount.setPagesize(3);
-        System.out.println("getCount----》"+weiXinAccount.getCount());
 
         WeiXinAccountInfoReqDto weiXinAccountInfoReqDto=new WeiXinAccountInfoReqDto();
         BeanUtils.copy(weiXinAccount,weiXinAccountInfoReqDto);
@@ -261,7 +264,7 @@ public class WeiXinAccountInfoController {
         System.out.println(listResponsePojo.getObject().size());
         List<WeiXinAccountInfoRespDto> li=listResponsePojo.getObject();
         for (WeiXinAccountInfoRespDto dto:li ) {
-            System.out.println(dto.getPkid());
+            System.out.println("pkid:"+dto.getPkid()+" userId:"+dto.getUserid()+" count:"+weiXinAccountInfoReqDto.getCount());
         }
     }
 
@@ -270,11 +273,38 @@ public class WeiXinAccountInfoController {
      * @param date
      * @return
      */
-    @RequestMapping("/getDate")
+    @RequestMapping("/getDateDefault")
     @ResponseBody
-    public Map <String,Object> userList(@CustomerDate Date date) {
+    public Map <String,Object> userListDefault(@CustomerDate Date date) {
         Map<String,Object> results=new HashMap<String,Object>();
         results.put("date",date);
+        return results;
+    }
+
+
+    /**
+     * 参数解析器
+     * @param date
+     * @return
+     */
+    @RequestMapping("/getDate")
+    @ResponseBody
+    public Map <String,Object> userList(@CustomerDate( value="2015-02-01 03:55:00") Date date) {
+        Map<String,Object> results=new HashMap<String,Object>();
+        results.put("date",date);
+        return results;
+    }
+
+    /**
+     * 参数解析器
+     * @param
+     * @return
+     */
+    @RequestMapping("/getUserInfo")
+    @ResponseBody
+    public Map <String,Object> userInfo(@UserInfo UserPo userPo) {
+        Map<String,Object> results=new HashMap<String,Object>();
+        results.put("userPo",userPo);
         return results;
     }
 }

@@ -2,6 +2,7 @@ package com.cad.carlink.weixin.test.annotation;
 
 import java.lang.reflect.Method;
 
+@SuppressWarnings("all")
 public class Test1 {
 
     public static void main(String[] args) {

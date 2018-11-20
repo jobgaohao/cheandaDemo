@@ -5,7 +5,6 @@ import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
-
 import java.lang.annotation.Annotation;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -19,9 +18,17 @@ public class CustomerHandlerMethodArgumentResolver implements HandlerMethodArgum
         for(Annotation  annotation:methodAnnotations){
             if(annotation instanceof CustomerDate){
                 CustomerDate  customerDate=(CustomerDate)annotation;
-                String dataStringValue=customerDate.value();
-                SimpleDateFormat formater=new SimpleDateFormat("yyyy-MM-dd HH:mm");
-                return  formater.parse(dataStringValue);
+                if(customerDate!=null){
+                    String dataStringValue=customerDate.value();
+                    SimpleDateFormat formater=new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                    return  formater.parse(dataStringValue);
+                }
+            }
+            else if(annotation instanceof UserInfo){
+                UserInfo userInfo=(UserInfo)annotation;
+                if(userInfo!=null){
+                    return webRequest.getAttribute(userInfo.value(), NativeWebRequest.SCOPE_REQUEST);
+                }
             }
         }
         return null;
