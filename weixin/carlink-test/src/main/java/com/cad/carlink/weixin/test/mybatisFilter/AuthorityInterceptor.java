@@ -1,33 +1,29 @@
 package com.cad.carlink.weixin.test.mybatisFilter;
 
-
 import org.apache.ibatis.executor.resultset.ResultSetHandler;
 import org.apache.ibatis.executor.statement.StatementHandler;
-import org.apache.ibatis.plugin.Intercepts;
-
-import java.util.Properties;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.plugin.*;
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.reflection.SystemMetaObject;
+
 import java.sql.*;
+import java.util.Properties;
 
 @Intercepts({
         @Signature(type = StatementHandler.class, method = "prepare", args = {Connection.class}),
         @Signature(type = ResultSetHandler.class, method = "handleResultSets", args = {Statement.class})
 })
-
 /**
- * 分页拦截器
+ * 权限拦截器
  */
-public class PageInterceptor implements Interceptor {
-
+public class AuthorityInterceptor implements Interceptor {
     private static final String SELECT_ID="findList";
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
-        System.out.println("pageInterceptor -- intercept");
+        System.out.println("AuthorityInterceptor -- intercept");
         if (invocation.getTarget() instanceof StatementHandler) {
             StatementHandler statementHandler = (StatementHandler) invocation.getTarget();
             MetaObject metaStatementHandler = SystemMetaObject.forObject(statementHandler);
@@ -39,38 +35,10 @@ public class PageInterceptor implements Interceptor {
                 // 分页参数作为参数对象parameterObject的一个属性
                 String sql = boundSql.getSql();
                 Common co=(Common)(boundSql.getParameterObject());
-
                 // 重写sql
-                String countSql=concatCountSql(sql);
                 String pageSql=concatPageSql(sql,co);
-
-                System.out.println("重写的 count  sql		:"+countSql);
                 System.out.println("重写的 select sql		:"+pageSql);
-
-                Connection connection = (Connection) invocation.getArgs()[0];
-
-                PreparedStatement countStmt = null;
-                ResultSet rs = null;
-                int totalCount = 0;
-                try {
-                    countStmt = connection.prepareStatement(countSql);
-                    rs = countStmt.executeQuery();
-                    if (rs.next()) {
-                        totalCount = rs.getInt(1);
-                    }
-                } catch (SQLException e) {
-                    System.out.println("Ignore this exception"+e);
-                } finally {
-                    try {
-                        rs.close();
-                        countStmt.close();
-                    } catch (SQLException e) {
-                        System.out.println("Ignore this exception"+ e);
-                    }
-                }
                 metaStatementHandler.setValue("delegate.boundSql.sql", pageSql);
-                //绑定count
-                co.setCount(totalCount);
             }
         }
         return invocation.proceed();
@@ -88,22 +56,11 @@ public class PageInterceptor implements Interceptor {
         }
     }
 
-    public String concatCountSql(String sql){
-        StringBuffer sb=new StringBuffer("select count(*) from ");
-        sql=sql.toLowerCase();
-
-        if(sql.lastIndexOf("order")>sql.lastIndexOf(")")){
-            sb.append(sql.substring(sql.indexOf("from")+4, sql.lastIndexOf("order")));
-        }else{
-            sb.append(sql.substring(sql.indexOf("from")+4));
-        }
-        return sb.toString();
-    }
 
     public String concatPageSql(String sql,Common co){
         StringBuffer sb=new StringBuffer();
         sb.append(sql);
-        sb.append(" limit ").append(co.getPagebegin()).append(" , ").append(co.getPagesize());
+        sb.append("  where areaType=1");
         return sb.toString();
     }
 

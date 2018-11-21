@@ -261,7 +261,7 @@ public class WeiXinAccountInfoController {
         WeiXinAccountInfoReqDto weiXinAccountInfoReqDto=new WeiXinAccountInfoReqDto();
         BeanUtils.copy(weiXinAccount,weiXinAccountInfoReqDto);
         ResponsePojo<List<WeiXinAccountInfoRespDto>> listResponsePojo=weiXinAccountService.findList(weiXinAccountInfoReqDto);
-        System.out.println(listResponsePojo.getObject().size());
+        System.out.println("查询条数："+listResponsePojo.getObject().size());
         List<WeiXinAccountInfoRespDto> li=listResponsePojo.getObject();
         for (WeiXinAccountInfoRespDto dto:li ) {
             System.out.println("pkid:"+dto.getPkid()+" userId:"+dto.getUserid()+" count:"+weiXinAccountInfoReqDto.getCount());
