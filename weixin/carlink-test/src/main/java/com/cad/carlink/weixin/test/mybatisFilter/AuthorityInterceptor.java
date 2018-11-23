@@ -34,9 +34,8 @@ public class AuthorityInterceptor implements Interceptor {
                 BoundSql boundSql = (BoundSql) metaStatementHandler.getValue("delegate.boundSql");
                 // 分页参数作为参数对象parameterObject的一个属性
                 String sql = boundSql.getSql();
-                Common co=(Common)(boundSql.getParameterObject());
                 // 重写sql
-                String pageSql=concatPageSql(sql,co);
+                String pageSql=concatPageSql(sql);
                 System.out.println("重写的 select sql		:"+pageSql);
                 metaStatementHandler.setValue("delegate.boundSql.sql", pageSql);
             }
@@ -57,7 +56,7 @@ public class AuthorityInterceptor implements Interceptor {
     }
 
 
-    public String concatPageSql(String sql,Common co){
+    public String concatPageSql(String sql){
         StringBuffer sb=new StringBuffer();
         sb.append(sql);
         sb.append("  where areaType=1");

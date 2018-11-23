@@ -1,11 +1,14 @@
 package com.cad.carlink.weixin.service.impl;
 
+import com.cad.carlink.common.base.PageData;
 import com.cad.carlink.common.base.ResponsePojo;
 import com.cad.carlink.common.enums.ResponseCodeTypeEnum;
 import com.cad.carlink.weixin.dao.WeiXinAccountInfoPOMapper;
 import com.cad.carlink.weixin.model.dto.req.WeiXinAccountInfoReqDto;
 import com.cad.carlink.weixin.model.dto.resp.WeiXinAccountInfoRespDto;
 import com.cad.carlink.weixin.service.IWeiXinAccountService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -112,5 +115,22 @@ public class WeiXinAccountServiceImpl implements IWeiXinAccountService {
             responsePojo.setCode(ResponseCodeTypeEnum.FAIL.getDisplayName());
         }
         return responsePojo;
+    }
+
+
+    @Override
+    public PageData<WeiXinAccountInfoRespDto> findPage(WeiXinAccountInfoReqDto dto) {
+        PageData<WeiXinAccountInfoRespDto> pageData=new PageData<WeiXinAccountInfoRespDto>();
+        try {
+            PageHelper.startPage(2,3);
+            List<WeiXinAccountInfoRespDto> list = weiXinAccountInfoPOMapper.findList(dto);
+            Page<WeiXinAccountInfoRespDto> page=(Page<WeiXinAccountInfoRespDto>) list;
+            pageData.setRows(list);
+            pageData.setTotal(page.getTotal());
+            return pageData;
+        } catch (Exception e) {
+            logger.error("查询微信账户信息出错,m:{}" + e.getMessage(), e);
+        }
+        return pageData;
     }
 }

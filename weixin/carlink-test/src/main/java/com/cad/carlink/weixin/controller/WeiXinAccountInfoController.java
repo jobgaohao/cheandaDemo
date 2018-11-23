@@ -1,6 +1,7 @@
 package com.cad.carlink.weixin.controller;
 
 
+import com.cad.carlink.common.base.PageData;
 import com.cad.carlink.common.base.ResponsePojo;
 import com.cad.carlink.common.constant.Constants;
 import com.cad.carlink.common.enums.ResponseCodeTypeEnum;
@@ -19,6 +20,8 @@ import com.cad.carlink.weixin.test.annotation.UserInfo;
 import com.cad.carlink.weixin.test.annotation.UserPo;
 import com.cad.carlink.weixin.weixin.WechatMsgTempUtil;
 import com.cad.carlink.weixin.weixin.WechatUtil;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import me.chanjar.weixin.mp.bean.result.WxMpUser;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -268,6 +271,27 @@ public class WeiXinAccountInfoController {
         }
     }
 
+
+
+
+    /**
+     * mybatis 拦截器(com.github.pagehelper.PageHelper) 分页
+     */
+    @RequestMapping(value = "/getWeiXinAccountListPageHelper", method = RequestMethod.GET)
+    public Map <String,Object> getWeiXinAccountListPageHelper(){
+        WeiXinAccountInfoReqDto weiXinAccountInfoReqDto=new WeiXinAccountInfoReqDto();
+        PageData<WeiXinAccountInfoRespDto> listResponsePojo=weiXinAccountService.findPage(weiXinAccountInfoReqDto);
+        System.out.println("查询条数："+listResponsePojo.getPageSize());
+        List<WeiXinAccountInfoRespDto> li=listResponsePojo.getRows();
+        for (WeiXinAccountInfoRespDto dto:li ) {
+            System.out.println("pkid:"+dto.getPkid()+" userId:"+dto.getUserid()+" count:"+weiXinAccountInfoReqDto.getCount());
+        }
+
+        Map<String,Object> results=new HashMap<String,Object>();
+        results.put("pageHelper  userInfo",listResponsePojo);
+        return results;
+    }
+
     /**
      * 参数解析器
      * @param date
@@ -300,11 +324,12 @@ public class WeiXinAccountInfoController {
      * @param
      * @return
      */
-    @RequestMapping("/getUserInfo")
+    @RequestMapping(value = "/getUserInfo",method = RequestMethod.GET)
     @ResponseBody
-    public Map <String,Object> userInfo(@UserInfo UserPo userPo) {
+    public Map <String,Object> userInfo(@UserInfo UserPo userPo,@CustomerDate Date date) {
         Map<String,Object> results=new HashMap<String,Object>();
         results.put("userPo",userPo);
+        results.put("date",date);
         return results;
     }
 }

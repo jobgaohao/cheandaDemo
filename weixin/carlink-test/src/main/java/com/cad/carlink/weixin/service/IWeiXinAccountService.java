@@ -1,5 +1,6 @@
 package com.cad.carlink.weixin.service;
 
+import com.cad.carlink.common.base.PageData;
 import com.cad.carlink.common.base.ResponsePojo;
 import com.cad.carlink.weixin.model.dto.req.WeiXinAccountInfoReqDto;
 import com.cad.carlink.weixin.model.dto.resp.WeiXinAccountInfoRespDto;
@@ -29,4 +30,10 @@ public interface IWeiXinAccountService {
 
     ResponsePojo<List<WeiXinAccountInfoRespDto>> findList(WeiXinAccountInfoReqDto dto);
 
+    /**
+     * 分页查询
+     * @param dto
+     * @return
+     */
+    PageData<WeiXinAccountInfoRespDto> findPage(WeiXinAccountInfoReqDto dto);
 }

@@ -34,9 +34,19 @@ public class CustomerHandlerMethodArgumentResolver implements HandlerMethodArgum
         return null;
     }
 
+    /**
+     * 过滤不支持的参数类型
+     * @param parameter
+     * @return
+     */
     @SuppressWarnings("unchecked")
     public boolean supportsParameter(MethodParameter parameter) {
         Class  parameterType=parameter.getParameterType();
-        return parameterType.equals(Date.class);
+        if(parameterType.equals(Date.class)){
+            return true;
+        }else if(parameterType.equals(UserPo.class)){
+            return true;
+        }
+        return false;
     }
 }
