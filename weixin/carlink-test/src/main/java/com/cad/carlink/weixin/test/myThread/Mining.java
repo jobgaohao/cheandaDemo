@@ -6,7 +6,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 张老板找工人挖矿挣钱
+ * 张老板找工人挖矿挣钱，引用传递
  */
 public class Mining {
     private static final int THREAD_COUNT=5;
