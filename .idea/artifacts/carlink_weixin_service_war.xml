@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="carlink-weixin-service:war">
+    <output-path>$PROJECT_DIR$/weixin/carlink-test/target</output-path>
+    <root id="archive" name="weixin.war">
+      <element id="artifact" artifact-name="carlink-weixin-service:war exploded" />
+    </root>
+  </artifact>
+</component>
