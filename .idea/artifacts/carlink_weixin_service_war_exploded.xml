@@ -127,7 +127,6 @@
           <element id="library" level="project" name="Maven: org.jboss.resteasy:resteasy-jaxrs-services:3.1.4.Final" />
           <element id="library" level="project" name="Maven: org.jboss.logging:jboss-logging:3.3.0.Final" />
           <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpclient:4.5.2" />
-          <element id="library" level="project" name="Maven: commons-codec:commons-codec:1.6" />
           <element id="library" level="project" name="Maven: org.jboss.resteasy:resteasy-multipart-provider:3.1.4.Final" />
           <element id="library" level="project" name="Maven: com.sun.mail:javax.mail:1.5.6" />
           <element id="library" level="project" name="Maven: org.apache.james:apache-mime4j:0.6" />
@@ -163,6 +162,9 @@
           <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpasyncclient-cache:4.1.2" />
           <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpclient-cache:4.5.2" />
           <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpmime:4.5.2" />
+          <element id="library" level="project" name="Maven: com.github.qcloudsms:qcloudsms:1.0.6" />
+          <element id="library" level="project" name="Maven: org.json:json:20170516" />
+          <element id="library" level="project" name="Maven: commons-codec:commons-codec:1.6" />
           <element id="library" level="project" name="Maven: com.github.binarywang:weixin-java-mp:2.7.0" />
           <element id="library" level="project" name="Maven: com.github.binarywang:weixin-java-common:2.7.0" />
           <element id="library" level="project" name="Maven: com.thoughtworks.xstream:xstream:1.4.9" />
