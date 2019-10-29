@@ -29,6 +29,10 @@ public class PersonModel {
         this.sex = sex;
     }
 
+    public PersonModel(){
+
+    }
+
     public PersonModel(String name, Integer age, String sex) {
         this.name = name;
         this.age = age;
