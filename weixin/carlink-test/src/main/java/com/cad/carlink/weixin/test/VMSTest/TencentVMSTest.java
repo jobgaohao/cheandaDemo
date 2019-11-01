@@ -10,7 +10,7 @@ import javax.xml.ws.http.HTTPException;
 import java.io.IOException;
 
 /**
- *
+ *腾讯云 语音消息发送Demo
  */
 public class TencentVMSTest {
 

@@ -227,6 +227,11 @@
       <artifactId>weixin-java-mp</artifactId>
       <version>2.7.0</version>
     </dependency>
+    <dependency>
+      <groupId>com.aliyun</groupId>
+      <artifactId>aliyun-java-sdk-dyvmsapi</artifactId>
+      <version>1.2.2</version>
+    </dependency>
 
   </dependencies>
   <build>
