@@ -20,7 +20,7 @@ public class test1 {
 
 
     public static void getMAC(){
-        String macValue="dG8ZBPTB";
+        String macValue="ATMCOCMG";
         byte[] bytes = Base64.getDecoder().decode(macValue);
         String mac = BytesUtils.toHexString(bytes);
         System.out.println("http://114.119.9.163:8802/proxy/fetchMacDataService?macAddress="+mac);
